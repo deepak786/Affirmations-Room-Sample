@@ -27,19 +27,20 @@ import com.affirmations.app.R
 import com.affirmations.app.base.BaseFragment
 import com.affirmations.app.database.Affirmations
 import com.affirmations.app.databinding.FragmentDashboardBinding
+import com.affirmations.app.ui.affirmation.AffirmationView
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class Dashboard : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
+class Dashboard : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(), DashboardAdapterItemClickListener {
     private var anim: AnimationDrawable? = null
     private var adapter: DashboardAdapter? = null
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // initialize the adapter
-        adapter = DashboardAdapter(null)
+        adapter = DashboardAdapter(ArrayList<Affirmations>(), this)
         binding.affirmationsList.layoutManager = LinearLayoutManager(context)
         binding.affirmationsList.setHasFixedSize(true)
         binding.affirmationsList.adapter = adapter
@@ -52,12 +53,13 @@ class Dashboard : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
         // get all affirmations
         viewModel.getAllAffirmations().observe(this, Observer {
+            showOutput("Items Updated>>>>>")
             adapter?.updateItems(it)
         })
 
         binding.createAffirmation.setOnClickListener({
-            val affirmation = Affirmations(affirmation = "This is my dummy affirmation")
-            viewModel.affirmationsDataBase.insertAffirmation(affirmation)
+            viewModel.select(null)
+            openFragment(AffirmationView())
         })
 
         // initialize the animation
@@ -86,6 +88,15 @@ class Dashboard : BaseFragment<FragmentDashboardBinding, DashboardViewModel>() {
 
     override fun getViewModelClass(): Class<DashboardViewModel> {
         return DashboardViewModel::class.java
+    }
+
+    override fun onDashboardItemClick(affirmation: Affirmations?) {
+        viewModel.select(affirmation)
+        openFragment(AffirmationView())
+    }
+
+    override fun onBackPressed(): Boolean {
+        return false
     }
 
 

@@ -25,7 +25,9 @@ import com.affirmations.app.database.Affirmations
 /**
  * Created by root on 14/2/18.
  */
-class DashboardAdapter(private var affirmations: List<Affirmations>?) : BaseRecyclerAdapter() {
+class DashboardAdapter(private var affirmations: List<Affirmations>?,
+                       private var itemClickCallback: DashboardAdapterItemClickListener?)
+    : BaseRecyclerAdapter() {
 
     override fun getObjForPosition(position: Int): Any {
         return affirmations?.get(position)!!
@@ -36,7 +38,7 @@ class DashboardAdapter(private var affirmations: List<Affirmations>?) : BaseRecy
     }
 
     override fun setClickListeners(holder: Holder) {
-
+        holder.itemView.setOnClickListener { itemClickCallback?.onDashboardItemClick(affirmations?.get(holder.adapterPosition)) }
     }
 
     override fun getItemCount(): Int {

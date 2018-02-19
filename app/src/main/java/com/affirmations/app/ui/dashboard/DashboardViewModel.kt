@@ -25,13 +25,15 @@ import com.affirmations.app.database.AffirmationsDAO
 import com.affirmations.app.database.AppDataBase
 import com.affirmations.app.database.DataBaseHandler
 
+
 /**
  * Created by root on 14/2/18.
  */
 class DashboardViewModel(application: Application) : BaseViewModel(application) {
     private var appDatabase: AppDataBase = DataBaseHandler().getAppDatabase(getApplication())
     var randAffirmation = MutableLiveData<Affirmations>()
-    var affirmationsDataBase: AffirmationsDAO = appDatabase.affirmationsDAO()
+    private var selected = MutableLiveData<Affirmations>()
+    private var affirmationsDataBase: AffirmationsDAO = appDatabase.affirmationsDAO()
 
     init {
         if (affirmationsDataBase.getDefaultAffirmationsCount() == 0) {
@@ -58,5 +60,24 @@ class DashboardViewModel(application: Application) : BaseViewModel(application) 
         randAffirmation.postValue(affirmationsDataBase.getRandomAffirmation())
     }
 
+    fun select(item: Affirmations?) {
+        selected.value = item
+    }
 
+    fun getSelected(): MutableLiveData<Affirmations> {
+        return selected
+    }
+
+    fun update(affirmation: Affirmations) {
+//        affirmation.time = System.currentTimeMillis()
+        affirmationsDataBase.updateAffirmation(affirmation)
+    }
+
+    fun add(affirmation: Affirmations) {
+        affirmationsDataBase.insertAffirmation(affirmation)
+    }
+
+    fun delete(affirmation: Affirmations) {
+        affirmationsDataBase.deleteAffirmation(affirmation)
+    }
 }

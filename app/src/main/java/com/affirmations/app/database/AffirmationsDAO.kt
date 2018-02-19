@@ -18,10 +18,7 @@ package com.affirmations.app.database
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Update
+import android.arch.persistence.room.*
 
 /**
  * Created by root on 14/2/18.
@@ -32,7 +29,7 @@ interface AffirmationsDAO {
     @Query("SELECT * FROM Affirmations WHERE is_default == 0 ORDER BY created_at DESC")
     fun getAllAffirmations(): LiveData<List<Affirmations>>
 
-    @Query("SELECT * FROM Affirmations ORDER BY RANDOM() LIMIT 1;")
+    @Query("SELECT * FROM Affirmations WHERE is_default == 1 ORDER BY RANDOM() LIMIT 1;")
     fun getRandomAffirmation(): Affirmations
 
     @Insert
@@ -43,5 +40,8 @@ interface AffirmationsDAO {
 
     @Query("SELECT count(*) FROM Affirmations WHERE is_default == 1")
     fun getDefaultAffirmationsCount(): Int
+
+    @Delete
+    fun deleteAffirmation(affirmation: Affirmations)
 
 }

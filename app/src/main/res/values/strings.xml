@@ -2,6 +2,12 @@
     <string name="app_name">Affirmations</string>
     <string name="exitApp">press again to exit</string>
 
+    <string name="newAffirmationHint">Create your affirmation here…</string>
+    <string name="invalidAffirmationResponse">Please add your affirmation first</string>
+
+    <!-- Affirmation action menu -->
+    <string name="delete">Delete</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

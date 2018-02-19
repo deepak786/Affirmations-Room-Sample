@@ -41,6 +41,7 @@ class DashboardDiffCallback(private val oldList: List<Affirmations>?, private va
         val newData: Affirmations? = newList?.get(newItemPosition)
 
         return (oldData?.affirmation == newData?.affirmation
+                && oldData?.id == newData?.id
                 && oldData?.time == newData?.time)
     }
 }

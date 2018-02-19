@@ -19,6 +19,7 @@ package com.affirmations.app
 import android.content.Intent
 import android.os.Bundle
 import com.affirmations.app.base.BaseActivity
+import com.affirmations.app.base.BaseFragment
 import com.affirmations.app.ui.dashboard.Dashboard
 
 class MainActivity : BaseActivity() {
@@ -31,7 +32,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        oneStepBack()
+        val fragment = getFragment() as BaseFragment<*, *>
+        if (!fragment.onBackPressed()) {
+            oneStepBack()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -51,12 +51,14 @@ public abstract class BaseFragment<DB extends ViewDataBinding, VM extends BaseVi
 
     public abstract Class<VM> getViewModelClass();
 
+    public abstract boolean onBackPressed();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
 
-        viewModel = ViewModelProviders.of(this).get(getViewModelClass());
+        viewModel = ViewModelProviders.of(getActivity()).get(getViewModelClass());
         binding.setVariable(BR.viewModel, viewModel);
 //        viewModel.setUserId(Preferences.getInstance().getUserId(getContext()));
 
