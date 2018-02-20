@@ -14,10 +14,11 @@
  *   limitations under the License.
  */
 
-package com.affirmations.app
+package com.affirmations.app.ui
 
 import android.content.Intent
 import android.os.Bundle
+import com.affirmations.app.R
 import com.affirmations.app.base.BaseActivity
 import com.affirmations.app.base.BaseFragment
 import com.affirmations.app.ui.dashboard.Dashboard

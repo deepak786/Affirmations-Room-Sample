@@ -53,8 +53,17 @@ class Dashboard : BaseFragment<FragmentDashboardBinding, DashboardViewModel>(), 
 
         // get all affirmations
         viewModel.getAllAffirmations().observe(this, Observer {
-            showOutput("Items Updated>>>>>")
-            adapter?.updateItems(it)
+            if (it != null) {
+                if (it.isNotEmpty()) {
+                    binding.affirmationsList.visibility = View.VISIBLE
+                    binding.emptyView.visibility = View.GONE
+                    adapter?.updateItems(it)
+                    return@Observer
+                }
+            }
+            binding.affirmationsList.visibility = View.GONE
+            binding.emptyView.visibility = View.VISIBLE
+
         })
 
         binding.createAffirmation.setOnClickListener({

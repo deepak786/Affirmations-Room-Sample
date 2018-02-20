@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:textSize">@dimen/textSize</item>
+        <item name="android:fontFamily">@font/bitter_italic</item>
 
         <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert</item>
         <item name="windowActionBar">false</item>

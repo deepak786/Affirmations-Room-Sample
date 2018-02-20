@@ -7,7 +7,7 @@ android {
     dataBinding.enabled = true
     defaultConfig {
         applicationId "com.affirmations.app"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
